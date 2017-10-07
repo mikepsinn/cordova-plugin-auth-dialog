@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.msopentech.authDialog.databases.MoodDatabaseHelper;
-import com.msopentech.authDialog.dialogs.MoodDialog;
+import com.msopentech.authDialog.MoodDialog;
 import com.msopentech.authDialog.things.MoodThing;
 
 public class MoodResultReceiver extends BroadcastReceiver
