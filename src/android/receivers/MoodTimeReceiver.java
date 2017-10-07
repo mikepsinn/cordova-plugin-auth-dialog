@@ -1,4 +1,4 @@
-package com.quantimodo.ratingplugin.receivers;
+package com.msopentech.authDialog.receivers;
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -8,14 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import com.quantimodo.ratingplugin.Global;
-import com.quantimodo.ratingplugin.Log;
-import com.quantimodo.ratingplugin.dialogs.MoodDialog;
+import com.msopentech.authDialog.Global;
+import com.msopentech.authDialog.Log;
+import com.msopentech.authDialog.dialogs.MoodDialog;
 
 public class MoodTimeReceiver extends BroadcastReceiver
 {
-	public static final String ACTION_SHOW_NOTIFICATION = "com.quantimodo.ratingplugin.SHOW_MOOD_NOTIFICATION";
-	public static final String ACTION_SHOW_POPUP = "com.quantimodo.ratingplugin.SHOW_MOOD_POPUP";
+	public static final String ACTION_SHOW_NOTIFICATION = "com.msopentech.authDialog.SHOW_MOOD_NOTIFICATION";
+	public static final String ACTION_SHOW_POPUP = "com.msopentech.authDialog.SHOW_MOOD_POPUP";
 
 	public static final int ALARM_REQUEST_CODE = 7331;
 	public static final int ALARM_REMINDER_REQUEST_CODE = 3317;

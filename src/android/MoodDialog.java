@@ -41,16 +41,18 @@ import com.msopentech.authDialog.things.Question;
 
 public class MoodDialog
 {
-	public static final int NOTIFICATION_ID = 133710;
+	private final int NOTIFICATION_ID = 133710;
 	private static final String TAG = "MyActivity";
 
-	private static View overlayView;
-	private static LinearLayout lnAskMoreQuestions;
-	private static LinearLayout lnCurrentQuestion;
-	private static ImageButton imAskMoreQuestions;
-	private static ImageButton[] moodButtons;
-	private static TextView tvQuestion;
-	private static TextView tvQuestionDescription;
+	private final Context mContext;
+
+	private View overlayView;
+	private LinearLayout lnAskMoreQuestions;
+	private LinearLayout lnCurrentQuestion;
+	private ImageButton imAskMoreQuestions;
+	private ImageButton[] moodButtons;
+	private TextView tvQuestion;
+	private TextView tvQuestionDescription;
 
 	private static boolean moodDialogShowing;
 	private static boolean askMoreQuestions;
@@ -60,58 +62,22 @@ public class MoodDialog
 
 	private static int[] reportedMoods;
 
-
-	private void createDialog() {
-		LayoutInflater factory = LayoutInflater.from(mContext);
-		Resources resources = mContext.getResources();
-		int viewId = resources.getIdentifier("http_authentication", "layout", mContext.getPackageName());
-		View v = factory.inflate(resources.getLayout(viewId), null);
-		int userNameId = resources.getIdentifier("username_edit", "id", mContext.getPackageName());
-		mUsernameView = (TextView) v.findViewById(userNameId);
-		int passwordId = resources.getIdentifier("password_edit", "id", mContext.getPackageName());
-		mPasswordView = (TextView) v.findViewById(passwordId);
-		mPasswordView.setOnEditorActionListener(new OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_DONE) {
-					mDialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
-					return true;
-				}
-				return false;
-			}
-		});
-
-		int titleStringId = resources.getIdentifier("sign_in_to", "string", mContext.getPackageName());
-		String title = mContext.getText(titleStringId).toString().replace(
-				"%s1", mHost).replace("%s2", mRealm);
-
-		int actionStringId = resources.getIdentifier("action", "string", mContext.getPackageName());
-		int cancelStringId = resources.getIdentifier("cancel", "string", mContext.getPackageName());
-		mDialog = new AlertDialog.Builder(mContext)
-				.setTitle(title)
-				.setIconAttribute(android.R.attr.alertDialogIcon)
-				.setView(v)
-				.setPositiveButton(actionStringId, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						if (mOkListener != null) {
-							mOkListener.onOk(mHost, mRealm, getUsername(), getPassword());
-						}
-					}})
-				.setNegativeButton(cancelStringId, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						if (mCancelListener != null) mCancelListener.onCancel();
-					}})
-				.setOnCancelListener(new DialogInterface.OnCancelListener() {
-					public void onCancel(DialogInterface dialog) {
-						if (mCancelListener != null) mCancelListener.onCancel();
-					}})
-				.create();
-
-		// Make the IME appear when the dialog is displayed if applicable.
-		mDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+	public MoodDialog(Context context) {
+		mContext = context;
+		showNotification(mContext);
 	}
 
-	public static void showNotification(Context context)
+	private int getStringId(String name) {
+		Resources resources = mContext.getResources();
+		return resources.getIdentifier(name, "string", mContext.getPackageName());
+	}
+
+	private int getLayoutId(String name) {
+		Resources resources = mContext.getResources();
+		return resources.getIdentifier(name, "layout", mContext.getPackageName());
+	}
+
+	public void showNotification(Context context)
 	{
 		MoodTimeReceiver.setReminderAlarm(context);
 
@@ -140,16 +106,17 @@ public class MoodDialog
 		PendingIntent intentShowPopup = PendingIntent.getBroadcast(context, 0, intent5, 0);
 
 		Resources res = context.getResources();
-
+		Resources resources = mContext.getResources();
+		int notif_mood_title = resources.getIdentifier("notif_mood_title", "string", mContext.getPackageName());
 		Notification noti = new NotificationCompat.Builder(context)
-				.setContentTitle(res.getString(R.string.notif_mood_title))
-				.setContentText(res.getString(R.string.notif_mood_subtitle))
+				.setContentTitle(res.getString(getStringId("notif_mood_title")))
+				.setContentText(res.getString(getStringId("notif_mood_subtitle")))
 				.setSmallIcon(R.drawable.ic_action_appicon)
 				.setContentIntent(intentShowPopup).build();
 
 		if (Build.VERSION.SDK_INT >= 16)
 		{
-			RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_mood);
+			RemoteViews contentView = new RemoteViews(context.getPackageName(), getLayoutId("notification_mood"));
 			contentView.setOnClickPendingIntent(R.id.btDepressed, intentDepressed);
 			contentView.setOnClickPendingIntent(R.id.btSad, intentSad);
 			contentView.setOnClickPendingIntent(R.id.btOk, intentOk);
@@ -158,7 +125,7 @@ public class MoodDialog
 			noti.bigContentView = contentView;
 		}
 
-		noti.tickerText = res.getString(R.string.notif_mood_title);
+		noti.tickerText = res.getString(getStringId("notif_mood_title"));
 
 		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -167,7 +134,7 @@ public class MoodDialog
 		notificationManager.notify(NOTIFICATION_ID, noti);
 	}
 
-	public static void show(final Context context)
+	public void show(final Context context)
 	{
 		if (moodDialogShowing)
 		{
@@ -230,7 +197,7 @@ public class MoodDialog
 			}
 		}
 
-		overlayView = LayoutInflater.from(context).inflate(R.layout.dialog_mood, null);
+		overlayView = LayoutInflater.from(context).inflate(getLayoutId("dialog_mood"), null);
 		overlayView.getBackground().setAlpha(0);
 		final Handler handler = new Handler();
 		final Runnable run = new Runnable()
@@ -586,8 +553,8 @@ public class MoodDialog
 
 				@Override public void onAnimationEnd(Animation animation)
 				{
-					tvAskMoreQuestions.setText(R.string.popup_askmorequestions_cancel);
-					imAskMoreQuestions.setImageResource(R.drawable.ic_cancel_dark);
+					tvAskMoreQuestions.setText(getStringId("popup_askmorequestions_cancel);
+							imAskMoreQuestions.setImageResource(R.drawable.ic_cancel_dark);
 
 					Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in_fast);
 					tvAskMoreQuestions.setAnimation(fadeIn);

@@ -1,4 +1,4 @@
-package com.quantimodo.ratingplugin.things;
+package com.msopentech.authDialog.things;
 
 public enum Ratings {
     RATING_1(1),

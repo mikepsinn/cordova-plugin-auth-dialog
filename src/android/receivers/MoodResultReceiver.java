@@ -1,23 +1,23 @@
-package com.quantimodo.ratingplugin.receivers;
+package com.msopentech.authDialog.receivers;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.quantimodo.ratingplugin.databases.MoodDatabaseHelper;
-import com.quantimodo.ratingplugin.dialogs.MoodDialog;
-import com.quantimodo.ratingplugin.things.MoodThing;
+import com.msopentech.authDialog.databases.MoodDatabaseHelper;
+import com.msopentech.authDialog.dialogs.MoodDialog;
+import com.msopentech.authDialog.things.MoodThing;
 
 public class MoodResultReceiver extends BroadcastReceiver
 {
-	public static final String INTENT_ACTION_DEPRESSED = "com.quantimodo.ratingplugin.MOOD_RESULT_DEPRESSED";
-	public static final String INTENT_ACTION_SAD = "com.quantimodo.ratingplugin.MOOD_RESULT_SAD";
-	public static final String INTENT_ACTION_OK = "com.quantimodo.ratingplugin.MOOD_RESULT_OK";
-	public static final String INTENT_ACTION_HAPPY = "com.quantimodo.ratingplugin.MOOD_RESULT_HAPPY";
-	public static final String INTENT_ACTION_ECSTATIC = "com.quantimodo.ratingplugin.MOOD_RESULT_ECSTATIC";
+	public static final String INTENT_ACTION_DEPRESSED = "com.msopentech.authDialog.MOOD_RESULT_DEPRESSED";
+	public static final String INTENT_ACTION_SAD = "com.msopentech.authDialog.MOOD_RESULT_SAD";
+	public static final String INTENT_ACTION_OK = "com.msopentech.authDialog.MOOD_RESULT_OK";
+	public static final String INTENT_ACTION_HAPPY = "com.msopentech.authDialog.MOOD_RESULT_HAPPY";
+	public static final String INTENT_ACTION_ECSTATIC = "com.msopentech.authDialog.MOOD_RESULT_ECSTATIC";
 
-	public static final String INTENT_ACTION_DIALOG = "com.quantimodo.ratingplugin.MOOD_SHOW_DIALOG";
+	public static final String INTENT_ACTION_DIALOG = "com.msopentech.authDialog.MOOD_SHOW_DIALOG";
 
 	@Override public void onReceive(Context context, Intent intent)
 	{

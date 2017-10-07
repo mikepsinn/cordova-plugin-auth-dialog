@@ -1,10 +1,10 @@
-package com.quantimodo.ratingplugin.things;
+package com.msopentech.authDialog.things;
 
-import com.quantimodo.ratingplugin.Log;
-import com.quantimodo.ratingplugin.Utils;
+import com.msopentech.authDialog.Log;
+import com.msopentech.authDialog.Utils;
 
-import com.quantimodo.ratingplugin.model.MeasurementSet;
-import com.quantimodo.ratingplugin.model.Measurement;
+import com.msopentech.authDialog.model.MeasurementSet;
+import com.msopentech.authDialog.model.Measurement;
 
 import java.io.Serializable;
 import java.util.HashMap;

@@ -1,10 +1,10 @@
-package com.quantimodo.ratingplugin.things;
+package com.msopentech.authDialog.things;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import com.quantimodo.ratingplugin.R;
+import com.msopentech.authDialog.R;
 
 public class Question
 {

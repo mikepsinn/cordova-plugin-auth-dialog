@@ -1,11 +1,11 @@
-package com.quantimodo.ratingplugin.receivers;
+package com.msopentech.authDialog.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import com.quantimodo.ratingplugin.Global;
+import com.msopentech.authDialog.Global;
 
 public class BootCompletedReceiver extends BroadcastReceiver
 {
