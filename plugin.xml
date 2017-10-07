@@ -23,9 +23,20 @@
         </config-file>
         <source-file src="src/android/AuthRequestHandler.java" target-dir="src/com/msopentech/authDialog" />
         <source-file src="src/android/AuthenticationDialog.java" target-dir="src/com/msopentech/authDialog" />
+        <source-file src="src/android/MoodDialog.java" target-dir="src/com/msopentech/authDialog" />
+
+
+        <source-file src="src/android/things/Question.java" target-dir="src/com/msopentech/authDialog/things" />
+        <source-file src="src/android/things/MoodThing.java" target-dir="src/com/msopentech/authDialog/things" />
+
+        <source-file src="src/android/receivers/MoodTimeReceiver.java" target-dir="src/com/msopentech/authDialog/receivers" />
+        <source-file src="src/android/receivers/MoodResultReceiver.java" target-dir="src/com/msopentech/authDialog/receivers" />
 
         <resource-file src="src/android/res/layout/http_authentication.xml" target="res/layout/http_authentication.xml" />
+        <resource-file src="src/android/res/layout/dialog_mood.xml" target="res/layout/dialog_mood.xml" />
+
         <resource-file src="src/android/res/values/authdialog-strings.xml" target="res/values/authdialog-strings.xml" />
+        <resource-file src="src/android/res/values/mood-strings.xml" target="res/values/mood-strings.xml" />
     </platform>
 
     <platform name="ios">

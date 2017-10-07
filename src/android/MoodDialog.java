@@ -1,4 +1,4 @@
-package com.moodimodo.dialogs;
+package com.msopentech.authDialog;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -16,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,12 +27,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
-import com.moodimodo.Log;
-import com.moodimodo.R;
-import com.moodimodo.receivers.MoodResultReceiver;
-import com.moodimodo.receivers.MoodTimeReceiver;
-import com.moodimodo.things.MoodThing;
-import com.moodimodo.things.Question;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -39,9 +34,15 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.msopentech.authDialog.receivers.MoodResultReceiver;
+import com.msopentech.authDialog.receivers.MoodTimeReceiver;
+import com.msopentech.authDialog.things.MoodThing;
+import com.msopentech.authDialog.things.Question;
+
 public class MoodDialog
 {
 	public static final int NOTIFICATION_ID = 133710;
+	private static final String TAG = "MyActivity";
 
 	private static View overlayView;
 	private static LinearLayout lnAskMoreQuestions;
@@ -170,7 +171,7 @@ public class MoodDialog
 	{
 		if (moodDialogShowing)
 		{
-			Log.i("MoodDialog showing, not showing new dialog");
+			Log.i(TAG,"MoodDialog showing, not showing new dialog");
 			return;
 		}
 		moodDialogShowing = true;
@@ -359,7 +360,7 @@ public class MoodDialog
 	{
 		if (overlayView != null)
 		{
-			Log.i("Overlay not null");
+			Log.i(TAG,"Overlay not null");
 			final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 			final Handler handler = new Handler();
 			final Runnable run = new Runnable()
@@ -441,7 +442,7 @@ public class MoodDialog
 										try
 										{
 											windowManager.removeView(overlayView);
-											Log.i("Removed view");
+											Log.i(TAG,"Removed view");
 										}
 										catch (IllegalArgumentException ignored)
 										{
@@ -465,11 +466,11 @@ public class MoodDialog
 										try
 										{
 											windowManager.removeView(overlayView);
-											Log.i("Removed view");
+											Log.i(TAG,"Removed view");
 										}
 										catch (IllegalArgumentException ignored)
 										{
-											Log.i("Error removing view");
+											Log.i(TAG,"Error removing view");
 										}
 
 										moodDialogShowing = false;
@@ -630,23 +631,23 @@ public class MoodDialog
 					final Drawable drawable;
 					switch ((Integer) moodButton.getTag())
 					{
-					case MoodThing.RATING_VALUE_1:
-						drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 1, iconPrefix));
-						break;
-					case MoodThing.RATING_VALUE_2:
-						drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 2, iconPrefix));
-						break;
-					case MoodThing.RATING_VALUE_3:
-						drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 3, iconPrefix));
-						break;
-					case MoodThing.RATING_VALUE_4:
-						drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 4, iconPrefix));
-						break;
-					case MoodThing.RATING_VALUE_5:
-						drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 5, iconPrefix));
-						break;
-					default:
-						drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 2, iconPrefix));
+						case MoodThing.RATING_VALUE_1:
+							drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 1, iconPrefix));
+							break;
+						case MoodThing.RATING_VALUE_2:
+							drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 2, iconPrefix));
+							break;
+						case MoodThing.RATING_VALUE_3:
+							drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 3, iconPrefix));
+							break;
+						case MoodThing.RATING_VALUE_4:
+							drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 4, iconPrefix));
+							break;
+						case MoodThing.RATING_VALUE_5:
+							drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 5, iconPrefix));
+							break;
+						default:
+							drawable = context.getResources().getDrawable(getDrawableIdForButton(res, 2, iconPrefix));
 					}
 
 					final Animation animIn = AnimationUtils.loadAnimation(context, R.anim.flip_in);
